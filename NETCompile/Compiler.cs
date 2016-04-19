@@ -39,7 +39,7 @@ namespace NETCompile
             string references = "";
             string ressources = "";
 
-            string preAsm = "/out:";
+            string preAsm = " /out:";
             string preTarget = " /t:";
             string prePlatform = " /platform:";
             string preRef = " /r:";
@@ -69,10 +69,10 @@ namespace NETCompile
             switch (l)
             {
                 case Language.CSharp:
-                    Path.Combine(frameworkPath, "csc.exe");
+                    cscPath = Path.Combine(frameworkPath, "csc.exe");
                     break;
                 case Language.VB:
-                    Path.Combine(frameworkPath, "vbc.exe");
+                    cscPath = Path.Combine(frameworkPath, "vbc.exe");
                     break;
             }
 
@@ -123,7 +123,7 @@ namespace NETCompile
                 preAllowUnsafe += "-";
             }
 
-            File.WriteAllText("compile.bat", "\""+cscPath+"\" "+preAsm + asmName + prePlatform + platformOption +preTarget + targetOption + preRef + references + preRes + ressources + preAllowUnsafe + " \"" + sourcePath + "\"" + "\n pause");
+            File.WriteAllText("compile.bat", "\""+cscPath+"\" "+"/nologo"+preAsm + asmName + prePlatform + platformOption +preTarget + targetOption + preRef + references + preRes + ressources + preAllowUnsafe + " \"" + sourcePath + "\"" + "\n pause");
             Process.Start("compile.bat");
         }
     }
